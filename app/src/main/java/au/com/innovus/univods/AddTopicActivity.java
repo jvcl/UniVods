@@ -53,7 +53,7 @@ public class AddTopicActivity extends ActionBarActivity implements View.OnClickL
 
             String text = ((EditText) findViewById(R.id.editTextAddCode)).getText().toString();
 
-            if (text.isEmpty()){
+            if (!isTopicCodeValid(text)){
                 Toast.makeText(this, "Invalid Topic, Try Again", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -68,5 +68,13 @@ public class AddTopicActivity extends ActionBarActivity implements View.OnClickL
         if (v.getId() == R.id.add_by_code){
             Log.d(TAG, "add By code");
         }
+    }
+
+    private boolean isTopicCodeValid(String code){
+
+        if (code.isEmpty() || code.length() > 9){
+            return false;
+        }
+        return true;
     }
 }
