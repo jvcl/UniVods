@@ -1,5 +1,6 @@
 package au.com.innovus.univods;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -44,6 +45,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void onClick(View v) {
 
         if (v.getId() == R.id.add_topic_button){
+
+            startActivity(new Intent(this, AddTopicActivity.class));
 
         }
     }
