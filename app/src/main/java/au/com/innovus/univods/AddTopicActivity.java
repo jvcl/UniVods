@@ -1,5 +1,6 @@
 package au.com.innovus.univods;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,10 +11,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+
 
 public class AddTopicActivity extends ActionBarActivity implements View.OnClickListener {
 
     private String TAG = "UniVods-AddTopicActivity";
+
+    HashMap<String, Topic> mapTopics = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +30,18 @@ public class AddTopicActivity extends ActionBarActivity implements View.OnClickL
 
         findViewById(R.id.search_by_code).setOnClickListener(this);
         findViewById(R.id.add_by_code).setOnClickListener(this);
-    }
 
+        InputStreamReader reader = new InputStreamReader(getResources().openRawResource(R.raw.topics));
+        BufferedReader br = new BufferedReader(reader);
+
+        Gson gson = new Gson();
+        Topic[] topics = gson.fromJson(br, Topic[].class);
+
+        for (Topic t : topics){
+            mapTopics.put(t.getCode(), t);
+        }
+        topics = null;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,13 +70,13 @@ public class AddTopicActivity extends ActionBarActivity implements View.OnClickL
 
         if (v.getId() == R.id.search_by_code){
 
-            String text = ((EditText) findViewById(R.id.editTextAddCode)).getText().toString();
+            String text = ((EditText) findViewById(R.id.editTextAddCode)).getText().toString().toUpperCase();
 
             if (!isTopicCodeValid(text)){
                 Toast.makeText(this, "Invalid Topic, Try Again", Toast.LENGTH_SHORT).show();
                 return;
             }
-            ((TextView) findViewById(R.id.textViewTopicName)).setText(text);
+            ((TextView) findViewById(R.id.textViewTopicName)).setText(mapTopics.get(text).getName());
 
             findViewById(R.id.add_by_code).setEnabled(true);
             Log.d(TAG, "search by code "+ text);
@@ -73,6 +92,9 @@ public class AddTopicActivity extends ActionBarActivity implements View.OnClickL
     private boolean isTopicCodeValid(String code){
 
         if (code.isEmpty() || code.length() > 9){
+            return false;
+        }
+        if (!mapTopics.containsKey(code)){
             return false;
         }
         return true;

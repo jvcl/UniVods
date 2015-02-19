@@ -7,12 +7,10 @@ public class Topic {
 
     private String URL;
     private String major;
+    private String code;
     private String name;
 
-    public Topic(String URL, String major, String name) {
-        this.URL = URL;
-        this.major = major;
-        this.name = name;
+    public Topic() {
     }
 
     public String getURL() {
@@ -25,5 +23,13 @@ public class Topic {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return code +" "+name;
+    }
+    public String getCode(){
+        return code;
     }
 }
