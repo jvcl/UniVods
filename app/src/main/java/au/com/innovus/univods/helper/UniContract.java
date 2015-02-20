@@ -23,4 +23,12 @@ public class UniContract {
         public static final String COLUMN_NAME_CODE = "code";
         public static final String COLUMN_NAME_NAME = "name";
     }
+
+    public abstract class ChoosenTopicEntry implements BaseColumns {
+
+        public static final String TABLE_NAME = "uservideos";
+        public static final String COLUMN_NAME_MAJOR = "major";
+        public static final String COLUMN_NAME_CODE = "code";
+        public static final String COLUMN_NAME_NAME = "name";
+    }
 }
