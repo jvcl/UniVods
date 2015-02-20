@@ -10,6 +10,7 @@ public class Topic {
     private String code;
     private String name;
     private int id;
+    private String URL;
 
     public Topic() {
     }
@@ -44,8 +45,8 @@ public class Topic {
 
     public void setCode(String code) {
         this.code = code;
+        URL = "http://video.flinders.edu.au/lectureResources/vod/"+code+"_2014.xml";
     }
-
     public void setName(String name) {
         this.name = name;
     }
