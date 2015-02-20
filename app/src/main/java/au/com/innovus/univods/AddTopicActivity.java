@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import au.com.innovus.univods.helper.DatabaseHandler;
 
@@ -22,6 +23,7 @@ public class AddTopicActivity extends ActionBarActivity implements View.OnClickL
     private String TAG = "UniVods-AddTopicActivity";
     private Topic topic;
     private LinearLayout layout;
+    private HashMap<CheckBox, Topic> mapSelected = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class AddTopicActivity extends ActionBarActivity implements View.OnClickL
             CheckBox checkBox = new CheckBox(this);
             checkBox.setText(topic.getCode() + " " +topic.getName());
             layout.addView(checkBox);
+            mapSelected.put(checkBox, topic);
         }
         db.closeDB();
     }
@@ -104,6 +107,15 @@ public class AddTopicActivity extends ActionBarActivity implements View.OnClickL
             Log.d(TAG, "add By code");
         }
         if (v.getId() == R.id.button_remove){
+
+            DatabaseHandler db = new DatabaseHandler(this);
+            for (CheckBox checkBox : mapSelected.keySet()){
+                if (checkBox.isChecked()){
+                    Topic topic1 = mapSelected.get(checkBox);
+                    db.setSelected(topic1, 0);
+                }
+            }
+            db.closeDB();
 
             Toast.makeText(this, "Removed", Toast.LENGTH_SHORT).show();
 
