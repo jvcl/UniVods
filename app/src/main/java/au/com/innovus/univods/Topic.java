@@ -9,6 +9,7 @@ public class Topic {
     private String major;
     private String code;
     private String name;
+    private int id;
 
     public Topic() {
     }
@@ -31,5 +32,29 @@ public class Topic {
     }
     public String getCode(){
         return code;
+    }
+
+    public void setURL(String URL) {
+        this.URL = URL;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }

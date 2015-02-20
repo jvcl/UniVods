@@ -61,7 +61,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(SQL_CREATE_ENTRIES_MAJORS);
+        db.execSQL(SQL_CREATE_ENTRIES_TOPICS);
         addMajorstoDB(db);
+        addTopicstoDB(db);
 
     }
 
@@ -164,4 +166,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return contact list
         return contactList;
     }
+    // Getting All Majors
+    public List<Topic> getAllTopics() {
+        List<Topic> contactList = new ArrayList<Topic>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + UniContract.TopicEntry.TABLE_NAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Topic topic = new Topic();
+                topic.setId(Integer.parseInt(cursor.getString(0)));
+                topic.setMajor(cursor.getString(1));
+                topic.setCode(cursor.getString(2));
+                topic.setName(cursor.getString(3));
+                // Adding contact to list
+                contactList.add(topic);
+            } while (cursor.moveToNext());
+        }
+        // return contact list
+        return contactList;
+    }
+
 }

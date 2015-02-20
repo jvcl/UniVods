@@ -25,10 +25,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         DatabaseHandler db = new DatabaseHandler(this);
 
-        ArrayList<Major> majors = (ArrayList) db.getAllMajors();
+        ArrayList<Topic> topics = (ArrayList) db.getAllTopics();
 
-        for (Major major : majors){
-            Log.d("MainActivity", major.toString());
+        for (Topic topic : topics){
+            Log.d("MainActivity", topic.toString());
 
         }
 
