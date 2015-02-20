@@ -217,4 +217,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return topic;
     }
+
+    // closing database
+    public void closeDB() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        if (db != null && db.isOpen())
+            db.close();
+    }
 }
