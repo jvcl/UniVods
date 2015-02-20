@@ -16,6 +16,7 @@ import au.com.innovus.univods.helper.DatabaseHandler;
 public class AddTopicActivity extends ActionBarActivity implements View.OnClickListener {
 
     private String TAG = "UniVods-AddTopicActivity";
+    private Topic topic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class AddTopicActivity extends ActionBarActivity implements View.OnClickL
             }
 
             DatabaseHandler db = new DatabaseHandler(this);
-            Topic topic = db.getTopic(text);
+            topic = db.getTopic(text);
             db.closeDB();
 
             if (topic != null){
@@ -71,6 +72,12 @@ public class AddTopicActivity extends ActionBarActivity implements View.OnClickL
             }
         }
         if (v.getId() == R.id.add_by_code){
+            DatabaseHandler db = new DatabaseHandler(this);
+            if (topic != null){
+                db.setSelected(topic, 1);
+            }
+            db.closeDB();
+
             Log.d(TAG, "add By code");
         }
     }

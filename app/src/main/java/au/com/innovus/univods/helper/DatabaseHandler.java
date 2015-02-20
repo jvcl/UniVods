@@ -42,23 +42,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     UniContract.TopicEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     UniContract.TopicEntry.COLUMN_NAME_MAJOR + TEXT_TYPE + COMMA_SEP +
                     UniContract.TopicEntry.COLUMN_NAME_CODE + TEXT_TYPE + COMMA_SEP +
-                    UniContract.TopicEntry.COLUMN_NAME_NAME + TEXT_TYPE  +
-                    " )";
-
-    private static final String SQL_CREATE_ENTRIES_CHOSEN_TOPICS =
-            "CREATE TABLE " + UniContract.ChoosenTopicEntry.TABLE_NAME + " (" +
-                    UniContract.ChoosenTopicEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    UniContract.ChoosenTopicEntry.COLUMN_NAME_MAJOR + TEXT_TYPE + COMMA_SEP +
-                    UniContract.ChoosenTopicEntry.COLUMN_NAME_CODE + TEXT_TYPE + COMMA_SEP +
-                    UniContract.ChoosenTopicEntry.COLUMN_NAME_NAME + TEXT_TYPE  +
+                    UniContract.TopicEntry.COLUMN_NAME_NAME + TEXT_TYPE  + COMMA_SEP +
+                    UniContract.TopicEntry.COLUMN_NAME_CHOSEN + " INTEGER NOT NULL" +
                     " )";
 
     private static final String SQL_DELETE_ENTRIES_MAJOR =
             "DROP TABLE IF EXISTS " + UniContract.MajorEntry.TABLE_NAME;
     private static final String SQL_DELETE_ENTRIES_TOPIC =
             "DROP TABLE IF EXISTS " + UniContract.TopicEntry.TABLE_NAME;
-    private static final String SQL_DELETE_ENTRIES_CHOSEN_TOPIC =
-            "DROP TABLE IF EXISTS " + UniContract.ChoosenTopicEntry.TABLE_NAME;
 
     private Context context;
 
@@ -73,7 +64,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.execSQL(SQL_CREATE_ENTRIES_MAJORS);
         db.execSQL(SQL_CREATE_ENTRIES_TOPICS);
-        db.execSQL(SQL_CREATE_ENTRIES_CHOSEN_TOPICS);
         addMajorstoDB(db);
         addTopicstoDB(db);
 
@@ -126,12 +116,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return newRowId;
     }
 
-    public long addTopic(Topic major, SQLiteDatabase db) {
+    public long addTopic(Topic topic, SQLiteDatabase db) {
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(UniContract.TopicEntry.COLUMN_NAME_MAJOR, major.getMajor());
-        contentValues.put(UniContract.TopicEntry.COLUMN_NAME_CODE, major.getCode());
-        contentValues.put(UniContract.TopicEntry.COLUMN_NAME_NAME, major.getName());
+        contentValues.put(UniContract.TopicEntry.COLUMN_NAME_MAJOR, topic.getMajor());
+        contentValues.put(UniContract.TopicEntry.COLUMN_NAME_CODE, topic.getCode());
+        contentValues.put(UniContract.TopicEntry.COLUMN_NAME_NAME, topic.getName());
+        contentValues.put(UniContract.TopicEntry.COLUMN_NAME_CHOSEN, 0);
 
         long newRowId;
         newRowId = db.insert(
@@ -148,7 +139,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // to simply to discard the data and start over
         db.execSQL(SQL_DELETE_ENTRIES_MAJOR);
         db.execSQL(SQL_DELETE_ENTRIES_TOPIC);
-        db.execSQL(SQL_DELETE_ENTRIES_CHOSEN_TOPIC);
 
     }
 
@@ -196,6 +186,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 topic.setMajor(cursor.getString(1));
                 topic.setCode(cursor.getString(2));
                 topic.setName(cursor.getString(3));
+                topic.setSelected(Integer.parseInt(cursor.getString(4)) == 0);
                 // Adding contact to list
                 contactList.add(topic);
             } while (cursor.moveToNext());
@@ -225,7 +216,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             topic.setId(Integer.parseInt(cursor.getString(0)));
             topic.setMajor(cursor.getString(1));
             topic.setCode(cursor.getString(2));
-            topic.setName(cursor.getString(3));;
+            topic.setName(cursor.getString(3));
+            topic.setSelected(Integer.parseInt(cursor.getString(4)) == 1);
         }
         return topic;
     }
@@ -235,5 +227,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         if (db != null && db.isOpen())
             db.close();
+    }
+
+    public void setSelected(Topic topic, int selected){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(UniContract.TopicEntry.COLUMN_NAME_MAJOR, topic.getMajor());
+        contentValues.put(UniContract.TopicEntry.COLUMN_NAME_CODE, topic.getCode());
+        contentValues.put(UniContract.TopicEntry.COLUMN_NAME_NAME, topic.getName());
+        contentValues.put(UniContract.TopicEntry.COLUMN_NAME_CHOSEN, selected);
+
+        db.update(UniContract.TopicEntry.TABLE_NAME,
+                contentValues,
+                UniContract.TopicEntry.COLUMN_NAME_CODE + " = ?",
+                new String[] {topic.getCode()});
     }
 }

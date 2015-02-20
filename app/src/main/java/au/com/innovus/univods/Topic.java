@@ -5,12 +5,12 @@ package au.com.innovus.univods;
  */
 public class Topic {
 
-    private String URL;
     private String major;
     private String code;
     private String name;
     private int id;
     private String URL;
+    private boolean isSelected;
 
     public Topic() {
     }
@@ -29,7 +29,7 @@ public class Topic {
 
     @Override
     public String toString() {
-        return code +" "+name;
+        return code +" "+name +" " +isSelected;
     }
     public String getCode(){
         return code;
@@ -57,5 +57,13 @@ public class Topic {
 
     public int getId() {
         return id;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean isSelected) {
+        this.isSelected = isSelected;
     }
 }
