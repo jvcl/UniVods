@@ -9,12 +9,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import au.com.innovus.univods.Major;
 import au.com.innovus.univods.R;
+import au.com.innovus.univods.Topic;
 
 /**
  * Created by jorge on 20/02/15.
@@ -42,8 +44,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     UniContract.TopicEntry.COLUMN_NAME_NAME + TEXT_TYPE  +
                     " )";
 
-    private static final String SQL_DELETE_ENTRIES =
+    private static final String SQL_DELETE_ENTRIES_MAJOR =
             "DROP TABLE IF EXISTS " + UniContract.MajorEntry.TABLE_NAME;
+    private static final String SQL_DELETE_ENTRIES_TOPIC =
+            "DROP TABLE IF EXISTS " + UniContract.TopicEntry.TABLE_NAME;
 
     private Context context;
 
@@ -57,16 +61,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(SQL_CREATE_ENTRIES_MAJORS);
+        addMajorstoDB(db);
 
+    }
+
+    private void addMajorstoDB(SQLiteDatabase db){
         InputStreamReader reader = new InputStreamReader(context.getResources().openRawResource(R.raw.codes));
         BufferedReader br = new BufferedReader(reader);
 
         Gson gson = new Gson();
         Major[] topics = gson.fromJson(br, Major[].class);
-
+        try {
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         for (Major topic : topics){
             addMajor(topic, db);
+        }
+    }
 
+    private void addTopicstoDB(SQLiteDatabase db){
+        InputStreamReader reader = new InputStreamReader(context.getResources().openRawResource(R.raw.topics));
+        BufferedReader br = new BufferedReader(reader);
+
+        Gson gson = new Gson();
+        Topic[] topics = gson.fromJson(br, Topic[].class);
+        try {
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Topic topic : topics){
+            addTopic(topic, db);
         }
     }
 
@@ -85,11 +112,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return newRowId;
     }
 
+    public long addTopic(Topic major, SQLiteDatabase db) {
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(UniContract.TopicEntry.COLUMN_NAME_MAJOR, major.getMajor());
+        contentValues.put(UniContract.TopicEntry.COLUMN_NAME_CODE, major.getCode());
+        contentValues.put(UniContract.TopicEntry.COLUMN_NAME_NAME, major.getName());
+
+        long newRowId;
+        newRowId = db.insert(
+                UniContract.TopicEntry.TABLE_NAME,
+                null,
+                contentValues);
+
+        return newRowId;
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
-        db.execSQL(SQL_DELETE_ENTRIES);
+        db.execSQL(SQL_DELETE_ENTRIES_MAJOR);
+        db.execSQL(SQL_DELETE_ENTRIES_TOPIC);
 
     }
 
