@@ -3,9 +3,14 @@ package au.com.innovus.univods;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import java.util.ArrayList;
+
+import au.com.innovus.univods.helper.DatabaseHandler;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
@@ -17,6 +22,18 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         //Set onclick listener to add button
         findViewById(R.id.add_topic_button).setOnClickListener(this);
+
+        DatabaseHandler db = new DatabaseHandler(this);
+
+        ArrayList<Major> majors = (ArrayList) db.getAllMajors();
+
+        for (Major major : majors){
+            Log.d("MainActivity", major.toString());
+
+        }
+
+        db.close();
+
     }
 
 
