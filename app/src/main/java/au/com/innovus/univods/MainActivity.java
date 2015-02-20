@@ -23,19 +23,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         //Set onclick listener to add button
         findViewById(R.id.add_topic_button).setOnClickListener(this);
 
-        DatabaseHandler db = new DatabaseHandler(this);
 
-        ArrayList<Topic> topics = (ArrayList) db.getAllTopics();
-
-        Topic topic = db.getTopic("SPAN340244");
-
-        if (topic == null){
-            Log.d("Main", "topic is null");
-        }else{
-            Log.d("Main", "topic is not null "+ topic.toString());
-        }
-
-        db.close();
 
     }
 
