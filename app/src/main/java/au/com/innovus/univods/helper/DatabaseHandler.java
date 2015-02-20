@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -191,4 +192,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return contactList;
     }
 
+    public Topic getTopic(String code){
+
+        Topic topic = null;
+
+        String selectQuery = "SELECT  * FROM " + UniContract.TopicEntry.TABLE_NAME +
+                " WHERE " + UniContract.TopicEntry.COLUMN_NAME_CODE + " = \""+ code+"\"";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        Log.d(TAG, ""+ cursor.getCount());
+        Log.d(TAG, selectQuery);
+
+
+        if (cursor == null || cursor.getCount() <=0) {
+            return topic;
+        }
+        else{
+            cursor.moveToFirst();
+            topic = new Topic();
+            topic.setId(Integer.parseInt(cursor.getString(0)));
+            topic.setMajor(cursor.getString(1));
+            topic.setCode(cursor.getString(2));
+            topic.setName(cursor.getString(3));;
+        }
+        return topic;
+    }
 }

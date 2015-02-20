@@ -27,9 +27,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         ArrayList<Topic> topics = (ArrayList) db.getAllTopics();
 
-        for (Topic topic : topics){
-            Log.d("MainActivity", topic.toString());
+        Topic topic = db.getTopic("SPAN340244");
 
+        if (topic == null){
+            Log.d("Main", "topic is null");
+        }else{
+            Log.d("Main", "topic is not null "+ topic.toString());
         }
 
         db.close();
