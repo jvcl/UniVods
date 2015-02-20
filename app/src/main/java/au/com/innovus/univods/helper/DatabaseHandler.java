@@ -34,6 +34,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     UniContract.MajorEntry.COLUMN_NAME_NAME + TEXT_TYPE  +
             " )";
 
+    private static final String SQL_CREATE_ENTRIES_TOPICS =
+            "CREATE TABLE " + UniContract.TopicEntry.TABLE_NAME + " (" +
+                    UniContract.TopicEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    UniContract.TopicEntry.COLUMN_NAME_MAJOR + TEXT_TYPE + COMMA_SEP +
+                    UniContract.TopicEntry.COLUMN_NAME_CODE + TEXT_TYPE + COMMA_SEP +
+                    UniContract.TopicEntry.COLUMN_NAME_NAME + TEXT_TYPE  +
+                    " )";
+
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + UniContract.MajorEntry.TABLE_NAME;
 
