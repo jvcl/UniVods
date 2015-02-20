@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -22,7 +24,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         //Set onclick listener to add button
         findViewById(R.id.add_topic_button).setOnClickListener(this);
-
 
 
     }

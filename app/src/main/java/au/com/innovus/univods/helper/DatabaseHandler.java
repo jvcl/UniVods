@@ -195,6 +195,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return contactList;
     }
 
+    public List<Topic> getAllSelectedTopics() {
+        List<Topic> contactList = new ArrayList<Topic>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + UniContract.TopicEntry.TABLE_NAME + " WHERE "+ UniContract.TopicEntry.COLUMN_NAME_CHOSEN + " == 1";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Topic topic = new Topic();
+                topic.setId(Integer.parseInt(cursor.getString(0)));
+                topic.setMajor(cursor.getString(1));
+                topic.setCode(cursor.getString(2));
+                topic.setName(cursor.getString(3));
+                topic.setSelected(Integer.parseInt(cursor.getString(4)) == 0);
+                // Adding contact to list
+                contactList.add(topic);
+            } while (cursor.moveToNext());
+        }
+        // return contact list
+        return contactList;
+    }
+
     public Topic getTopic(String code){
 
         Topic topic = null;

@@ -6,9 +6,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import au.com.innovus.univods.helper.DatabaseHandler;
 
@@ -17,6 +21,7 @@ public class AddTopicActivity extends ActionBarActivity implements View.OnClickL
 
     private String TAG = "UniVods-AddTopicActivity";
     private Topic topic;
+    private LinearLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,19 @@ public class AddTopicActivity extends ActionBarActivity implements View.OnClickL
 
         findViewById(R.id.search_by_code).setOnClickListener(this);
         findViewById(R.id.add_by_code).setOnClickListener(this);
+        findViewById(R.id.button_remove).setOnClickListener(this);
+
+        DatabaseHandler db = new DatabaseHandler(this);
+
+        ArrayList<Topic> selected = (ArrayList<Topic>) db.getAllSelectedTopics();
+        layout = (LinearLayout) findViewById(R.id.linearLayoutAddTopic);
+
+        for (Topic topic : selected){
+            CheckBox checkBox = new CheckBox(this);
+            checkBox.setText(topic.getCode() + " " +topic.getName());
+            layout.addView(checkBox);
+        }
+        db.closeDB();
     }
 
     @Override
@@ -76,9 +94,19 @@ public class AddTopicActivity extends ActionBarActivity implements View.OnClickL
             if (topic != null){
                 db.setSelected(topic, 1);
             }
+
+            CheckBox checkBox = new CheckBox(this);
+            checkBox.setText(topic.getCode() + " " +topic.getName());
+            layout.addView(checkBox);
+
             db.closeDB();
 
             Log.d(TAG, "add By code");
+        }
+        if (v.getId() == R.id.button_remove){
+
+            Toast.makeText(this, "Removed", Toast.LENGTH_SHORT).show();
+
         }
     }
 
