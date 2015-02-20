@@ -45,10 +45,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     UniContract.TopicEntry.COLUMN_NAME_NAME + TEXT_TYPE  +
                     " )";
 
+    private static final String SQL_CREATE_ENTRIES_CHOSEN_TOPICS =
+            "CREATE TABLE " + UniContract.ChoosenTopicEntry.TABLE_NAME + " (" +
+                    UniContract.ChoosenTopicEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    UniContract.ChoosenTopicEntry.COLUMN_NAME_MAJOR + TEXT_TYPE + COMMA_SEP +
+                    UniContract.ChoosenTopicEntry.COLUMN_NAME_CODE + TEXT_TYPE + COMMA_SEP +
+                    UniContract.ChoosenTopicEntry.COLUMN_NAME_NAME + TEXT_TYPE  +
+                    " )";
+
     private static final String SQL_DELETE_ENTRIES_MAJOR =
             "DROP TABLE IF EXISTS " + UniContract.MajorEntry.TABLE_NAME;
     private static final String SQL_DELETE_ENTRIES_TOPIC =
             "DROP TABLE IF EXISTS " + UniContract.TopicEntry.TABLE_NAME;
+    private static final String SQL_DELETE_ENTRIES_CHOSEN_TOPIC =
+            "DROP TABLE IF EXISTS " + UniContract.ChoosenTopicEntry.TABLE_NAME;
 
     private Context context;
 
@@ -63,6 +73,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.execSQL(SQL_CREATE_ENTRIES_MAJORS);
         db.execSQL(SQL_CREATE_ENTRIES_TOPICS);
+        db.execSQL(SQL_CREATE_ENTRIES_CHOSEN_TOPICS);
         addMajorstoDB(db);
         addTopicstoDB(db);
 
@@ -137,6 +148,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // to simply to discard the data and start over
         db.execSQL(SQL_DELETE_ENTRIES_MAJOR);
         db.execSQL(SQL_DELETE_ENTRIES_TOPIC);
+        db.execSQL(SQL_DELETE_ENTRIES_CHOSEN_TOPIC);
 
     }
 
