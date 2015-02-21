@@ -106,6 +106,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = selectedTopics.get(position).getURL();
+        final Topic topic = selectedTopics.get(position);
         Log.d(TAG, "URL" + url);
 
 // Request a string response from the provided URL.
@@ -117,7 +118,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     public void onResponse(Object response) {
 
                         String r = (String) response;
-                        Log.d(TAG, "ITEM CLICKED" + r);
+                        Log.d(TAG, "ITEM CLICKED" + topic.toString());
+
+                        Intent intent = new Intent(getApplicationContext(), VideoListActivity.class);
+                        intent.putExtra("topic",topic);
+                        intent.putExtra("xml", r);
+                        Bundle bundle = new Bundle();
+                        startActivity(intent);
 
                     }
                 }, new Response.ErrorListener() {

@@ -1,9 +1,12 @@
 package au.com.innovus.univods;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by jorge on 19/02/15.
  */
-public class Topic {
+public class Topic implements Parcelable {
 
     private String major;
     private String code;
@@ -66,4 +69,41 @@ public class Topic {
     public void setSelected(boolean isSelected) {
         this.isSelected = isSelected;
     }
+
+    protected Topic(Parcel in) {
+        major = in.readString();
+        code = in.readString();
+        name = in.readString();
+        id = in.readInt();
+        URL = in.readString();
+        isSelected = in.readByte() != 0x00;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(major);
+        dest.writeString(code);
+        dest.writeString(name);
+        dest.writeInt(id);
+        dest.writeString(URL);
+        dest.writeByte((byte) (isSelected ? 0x01 : 0x00));
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Topic> CREATOR = new Parcelable.Creator<Topic>() {
+        @Override
+        public Topic createFromParcel(Parcel in) {
+            return new Topic(in);
+        }
+
+        @Override
+        public Topic[] newArray(int size) {
+            return new Topic[size];
+        }
+    };
 }

@@ -211,7 +211,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 topic.setMajor(cursor.getString(1));
                 topic.setCode(cursor.getString(2));
                 topic.setName(cursor.getString(3));
-                topic.setSelected(Integer.parseInt(cursor.getString(4)) == 0);
+                topic.setSelected(Integer.parseInt(cursor.getString(4)) == 1);
                 // Adding contact to list
                 contactList.add(topic);
             } while (cursor.moveToNext());
