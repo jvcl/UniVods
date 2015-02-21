@@ -7,16 +7,22 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import java.util.ArrayList;
 
 import au.com.innovus.univods.helper.DatabaseHandler;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
+    private final String TAG  = "MAIN ACTIVITY";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +31,30 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         //Set onclick listener to add button
         findViewById(R.id.add_topic_button).setOnClickListener(this);
 
+        ListView listView = (ListView) findViewById(R.id.listViewCurrentTopics);
+        SimpleCursorAdapter mAdapter;
+
+        DatabaseHandler db = new DatabaseHandler(this);
+        ArrayList<Topic> selectedTopics = (ArrayList<Topic>) db.getAllSelectedTopics();
+        db.closeDB();
+
+        Log.d(TAG, "size" + selectedTopics.size());
+
+        String[] selected = new String[selectedTopics.size()];
+
+        for (int i = 0; i < selected.length; i++){
+            Topic t = selectedTopics.get(i);
+            Log.d(TAG, t.toString());
+            selected[i] = new String(t.getName());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                selected);
+
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
 
     }
 
@@ -58,5 +88,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             startActivity(new Intent(this, AddTopicActivity.class));
 
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d(TAG, "ITEM CLICKED" + position);
     }
 }
