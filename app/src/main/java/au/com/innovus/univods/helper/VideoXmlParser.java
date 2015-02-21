@@ -75,7 +75,7 @@ public class VideoXmlParser {
             }
         }
 
-        return null;
+        return new VideoItem(title,pubDate,URL);
     }
 
     // Processes title tags in the feed.
