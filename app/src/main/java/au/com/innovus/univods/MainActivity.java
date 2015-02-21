@@ -31,6 +31,7 @@ import au.com.innovus.univods.helper.DatabaseHandler;
 public class MainActivity extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private final String TAG  = "MAIN ACTIVITY";
+    ArrayList<Topic> selectedTopics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         SimpleCursorAdapter mAdapter;
 
         DatabaseHandler db = new DatabaseHandler(this);
-        ArrayList<Topic> selectedTopics = (ArrayList<Topic>) db.getAllSelectedTopics();
+        selectedTopics = (ArrayList<Topic>) db.getAllSelectedTopics();
         db.closeDB();
 
         Log.d(TAG, "size" + selectedTopics.size());
@@ -104,7 +105,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://video.flinders.edu.au/lectureResources/vod/COMP2731_2014d.xml";
+        String url = selectedTopics.get(position).getURL();
+        Log.d(TAG, "URL" + url);
 
 // Request a string response from the provided URL.
 
