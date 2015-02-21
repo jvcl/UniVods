@@ -73,7 +73,6 @@ public class VideoXmlParser {
                 pubDate = readpubDate(parser);
                 Log.d(TAG, pubDate);
             }
-
         }
 
         return null;
