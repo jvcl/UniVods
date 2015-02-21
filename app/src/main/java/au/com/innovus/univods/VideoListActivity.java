@@ -12,6 +12,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.StringReader;
 
+import au.com.innovus.univods.helper.VideoXmlParser;
+
 
 /**
  * An activity representing a list of Videos. This activity
@@ -48,31 +50,14 @@ public class VideoListActivity extends FragmentActivity
         String xmlString =  intent.getExtras().getString("xml");
         Topic topic = intent.getExtras().getParcelable("topic");
 
+        VideoXmlParser parser = new VideoXmlParser();
         try {
-            XmlPullParser parser = Xml.newPullParser();
-            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-            parser.setInput(new StringReader(xmlString));
-            parser.nextTag();
-            while (parser.getEventType() != XmlPullParser.END_DOCUMENT) {
-                if (parser.getEventType() != XmlPullParser.START_TAG) {
-                    parser.next();
-                    continue;
-                }
-                String name = parser.getName();
-
-                if (name.compareToIgnoreCase("item") == 0){
-                    Log.d(TAG, name);
-                }
-                parser.next();
-            }
-
+            parser.parse(xmlString);
         } catch (XmlPullParserException e) {
             e.printStackTrace();
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
-
 
         Log.d(TAG, topic.toString());
 
