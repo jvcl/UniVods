@@ -3,13 +3,27 @@ package au.com.innovus.univods.helper;
 import android.util.Log;
 import android.util.Xml;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Created by jorge on 21/02/15.
@@ -17,98 +31,51 @@ import java.util.List;
 public class VideoXmlParser {
     private static final String TAG = "VideoXmlParser";
 
-    public List parse(String xmlString) throws XmlPullParserException, IOException {
+    public List parse(String xmlString) throws ParserConfigurationException, SAXException, IOException {
 
         ArrayList<VideoItem> videoItems = new ArrayList<>();
-
-        try {
-            XmlPullParser parser = Xml.newPullParser();
-            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-            parser.setInput(new StringReader(xmlString));
-            parser.nextTag();
-
-            while (parser.next() != XmlPullParser.END_DOCUMENT) {
-                if (parser.getEventType() != XmlPullParser.START_TAG) {
-                    continue;
-                }
-                String name = parser.getName();
-
-                if (name.compareToIgnoreCase("item") == 0) {
-                    getVideoItem(parser);
-                }
-
-
-            }
-
-        } finally {
-
-        }
-        return videoItems;
-    }
-
-    private VideoItem getVideoItem(XmlPullParser parser) throws IOException, XmlPullParserException {
-
         String title = "";
         String pubDate = "";
         String URL = "";
 
+        DocumentBuilderFactory builder = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = builder.newDocumentBuilder();
 
-        parser.require(XmlPullParser.START_TAG, null, "item");
+        InputStream inputStream = new ByteArrayInputStream(xmlString.getBytes(Charset.forName("UTF-8")));
 
-        while (parser.next() != XmlPullParser.END_DOCUMENT) {
-            if (parser.getEventType() != XmlPullParser.START_TAG) {
-                continue;
-            }
-            String name = parser.getName();
+        Document xmlDocument = documentBuilder.parse(inputStream);
 
-            if (name.equals("title")) {
-                title = readTitle(parser);
-                Log.d(TAG, title);
+        Element rootElement = xmlDocument.getDocumentElement();
+
+        Log.d(TAG, rootElement.getTagName());
+
+        NodeList items = rootElement.getElementsByTagName("item");
+
+        Node currentItem = null;
+        NodeList itemChildern = null;
+        Node currentChild = null;
+        for (int i = 0; i < items.getLength(); i++) {
+            currentItem = items.item(i);
+            itemChildern = currentItem.getChildNodes();
+            for (int j = 0; j < itemChildern.getLength(); j++) {
+                currentChild = itemChildern.item(j);
+
+                if (currentChild.getNodeName().equals("title")){
+                    title = currentChild.getTextContent();
+                    Log.d(TAG, title);
+                }
+                if (currentChild.getNodeName().equals("pubDate")){
+                    pubDate = currentChild.getTextContent();
+                    Log.d(TAG, pubDate);
+                }
+                if (currentChild.getNodeName().equals("guid")){
+                    URL = currentChild.getTextContent();
+                    Log.d(TAG, URL);
+                }
+
             }
-            if (name.equals("guid")) {
-                URL = readURL(parser);
-                Log.d(TAG, URL);
-            }
-            if (name.equals("pubDate")) {
-                pubDate = readpubDate(parser);
-                Log.d(TAG, pubDate);
-            }
+            videoItems.add(new VideoItem(title,pubDate,URL));
         }
-
-        return new VideoItem(title,pubDate,URL);
-    }
-
-    // Processes title tags in the feed.
-    private String readTitle(XmlPullParser parser) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, null, "title");
-        String title = readText(parser);
-        parser.require(XmlPullParser.END_TAG, null, "title");
-        return title;
-    }
-
-    // Processes title tags in the feed.
-    private String readURL(XmlPullParser parser) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, null, "guid");
-        String URL = readText(parser);
-        parser.require(XmlPullParser.END_TAG, null, "guid");
-        return URL;
-    }
-
-    // Processes title tags in the feed.
-    private String readpubDate(XmlPullParser parser) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, null, "pubDate");
-        String pubDate = readText(parser);
-        parser.require(XmlPullParser.END_TAG, null, "pubDate");
-        return pubDate;
-    }
-
-    // For the tags title and summary, extracts their text values.
-    private String readText(XmlPullParser parser) throws IOException, XmlPullParserException {
-        String result = "";
-        if (parser.next() == XmlPullParser.TEXT) {
-            result = parser.getText();
-            parser.nextTag();
-        }
-        return result;
+        return videoItems;
     }
 }

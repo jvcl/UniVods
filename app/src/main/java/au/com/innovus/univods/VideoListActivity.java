@@ -6,12 +6,19 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.util.Xml;
 
+import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import au.com.innovus.univods.helper.VideoItem;
 import au.com.innovus.univods.helper.VideoXmlParser;
 
 
@@ -40,11 +47,12 @@ public class VideoListActivity extends FragmentActivity
      */
     private boolean mTwoPane;
     private static final String TAG = "VideoListActivity";
+    List<VideoItem> videoItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_list);
+            setContentView(R.layout.activity_video_list);
 
         Intent intent = getIntent();
         String xmlString =  intent.getExtras().getString("xml");
@@ -52,11 +60,17 @@ public class VideoListActivity extends FragmentActivity
 
         VideoXmlParser parser = new VideoXmlParser();
         try {
-            parser.parse(xmlString);
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
+            videoItems = parser.parse(xmlString);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+
+        for (VideoItem v : videoItems){
+            Log.d(TAG, v.toString());
         }
 
         Log.d(TAG, topic.toString());
@@ -103,5 +117,17 @@ public class VideoListActivity extends FragmentActivity
             detailIntent.putExtra(VideoDetailFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
         }
+    }
+
+    @Override
+    public String[] getVideoItems() {
+
+        String[] entries = new String[videoItems.size()];
+        Log.d(TAG, "videoitems size "+ videoItems.size());
+
+        for (int i = 0; i < entries.length; i++){
+            entries[i] = videoItems.get(i).getTitle();
+        }
+        return entries;
     }
 }

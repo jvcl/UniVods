@@ -38,4 +38,9 @@ public class VideoItem {
     public void setURL(String URL) {
         this.URL = URL;
     }
+
+    @Override
+    public String toString() {
+        return title + " " + URL;
+    }
 }
