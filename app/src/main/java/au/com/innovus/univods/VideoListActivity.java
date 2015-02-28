@@ -84,9 +84,10 @@ public class VideoListActivity extends FragmentActivity
      * indicating that the item with the given ID was selected.
      */
     @Override
-    public void onItemSelected(int idd) {
+    public void onItemSelected(int pos) {
 
         Intent intent = new Intent(this, VideoDetailActivity.class);
+        intent.putExtra("url", videoItems.get(pos).getURL());
         startActivity(intent);
 
     }
