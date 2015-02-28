@@ -23,7 +23,8 @@
             android:name=".VideoDetailActivity"
             android:label="@string/title_video_detail"
             android:parentActivityName=".VideoListActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="landscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".VideoListActivity" />

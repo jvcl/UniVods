@@ -32,7 +32,6 @@ import au.com.innovus.univods.helper.VideoXmlParser;
  * <p/>
  * The activity makes heavy use of fragments. The list of items is a
  * {@link VideoListFragment} and the item details
- * (if present) is a {@link VideoDetailFragment}.
  * <p/>
  * This activity also implements the required
  * {@link VideoListFragment.Callbacks} interface
