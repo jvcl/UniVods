@@ -99,8 +99,15 @@ public class VideoListActivity extends FragmentActivity
         Log.d(TAG, "videoitems size "+ videoItems.size());
 
         for (int i = 0; i < entries.length; i++){
-            entries[i] = videoItems.get(i).getTitle();
+            String name = formatName(videoItems.get(i).getTitle());
+            entries[i] = name;
         }
         return entries;
+    }
+
+    private String formatName(String name) {
+
+        int index = name.indexOf("-") + 2;
+        return name.substring(index);
     }
 }
