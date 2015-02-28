@@ -75,19 +75,7 @@ public class VideoListActivity extends FragmentActivity
 
         Log.d(TAG, topic.toString());
 
-        if (findViewById(R.id.video_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-large and
-            // res/values-sw600dp). If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
 
-            // In two-pane mode, list items should be given the
-            // 'activated' state when touched.
-            ((VideoListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.video_list))
-                    .setActivateOnItemClick(true);
-        }
 
         // TODO: If exposing deep links into your app, handle intents here.
     }
@@ -97,26 +85,11 @@ public class VideoListActivity extends FragmentActivity
      * indicating that the item with the given ID was selected.
      */
     @Override
-    public void onItemSelected(String id) {
-        if (mTwoPane) {
-            // In two-pane mode, show the detail view in this activity by
-            // adding or replacing the detail fragment using a
-            // fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putString(VideoDetailFragment.ARG_ITEM_ID, id);
-            VideoDetailFragment fragment = new VideoDetailFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.video_detail_container, fragment)
-                    .commit();
+    public void onItemSelected(int idd) {
 
-        } else {
-            // In single-pane mode, simply start the detail activity
-            // for the selected item ID.
-            Intent detailIntent = new Intent(this, VideoDetailActivity.class);
-            detailIntent.putExtra(VideoDetailFragment.ARG_ITEM_ID, id);
-            startActivity(detailIntent);
-        }
+        Intent intent = new Intent(this, VideoDetailActivity.class);
+        startActivity(intent);
+
     }
 
     @Override

@@ -1,7 +1,7 @@
 package au.com.innovus.univods;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import au.com.innovus.univods.helper.DatabaseHandler;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class MainActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private final String TAG  = "MAIN ACTIVITY";
     ArrayList<Topic> selectedTopics;
