@@ -1,5 +1,6 @@
 package au.com.innovus.univods;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import au.com.innovus.univods.helper.DatabaseHandler;
 
 
-public class AddTopicActivity extends ActionBarActivity implements View.OnClickListener {
+public class AddTopicActivity extends Activity implements View.OnClickListener {
 
     private String TAG = "UniVods-AddTopicActivity";
     private Topic topic;
