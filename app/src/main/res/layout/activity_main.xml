@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:text="@string/name_app"
             android:id="@+id/textView"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            android:layout_marginBottom="10dp" />
 
         <Button
             android:layout_width="wrap_content"

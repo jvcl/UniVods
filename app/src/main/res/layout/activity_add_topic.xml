@@ -2,111 +2,125 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="au.com.innovus.univods.AddTopicActivity"
-    >
-    <TextView
+    tools:context="au.com.innovus.univods.AddTopicActivity">
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/addtopic"
-        android:text="Search and Add Topic"
-        android:layout_marginBottom="10dp"
-        android:textSize="18dp"
-        android:textStyle="bold" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.30"
-            android:layout_gravity="center_vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Topic Code"
-                />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/editTextAddCode"
-                android:layout_weight="1"
-                android:hint="COMP4567" />
-
-            <Button
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:text="Search"
-                android:id="@+id/search_by_code" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="0.30" >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/addtopic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textViewTopicName"
-                android:textStyle="bold|italic" />
-        </LinearLayout>
+                android:layout_marginBottom="10dp"
+                android:text="Search and Add Topic"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="right">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.30">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Topic Code" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editTextAddCode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="COMP4567" />
+
+                    <Button
+                        android:id="@+id/search_by_code"
+                        android:layout_width="90dp"
+                        android:layout_height="wrap_content"
+                        android:text="Search" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="0.30">
+
+                    <TextView
+                        android:id="@+id/textViewTopicName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold|italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/add_by_code"
+                        android:layout_width="90dp"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="Add" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/removetopics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Remove Topics"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutAddTopic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
 
             <Button
+                android:id="@+id/button_remove"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:text="Add"
-                android:id="@+id/add_by_code"
-                android:enabled="false" />
+                android:layout_gravity="right"
+                android:text="Remove" />
         </LinearLayout>
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/removetopics"
-        android:text="Remove Topics"
-        android:layout_marginBottom="10dp"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp" />
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayoutAddTopic"></LinearLayout>
-
-    <Button
-        android:layout_width="90dp"
-        android:layout_height="wrap_content"
-        android:text="Remove"
-        android:id="@+id/button_remove"
-        android:layout_gravity="right" />
+    </ScrollView>
 
 </LinearLayout>
