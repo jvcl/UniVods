@@ -107,13 +107,14 @@ public class AddTopicActivity extends Activity implements View.OnClickListener {
 
             Log.d(TAG, "add By code");
         }
-        if (v.getId() == R.id.button_remove){
+        if (v.getId() == R.id.button_remove) {
 
             DatabaseHandler db = new DatabaseHandler(this);
             for (CheckBox checkBox : mapSelected.keySet()){
                 if (checkBox.isChecked()){
                     Topic topic1 = mapSelected.get(checkBox);
                     db.setSelected(topic1, 0);
+                    layout.removeView(checkBox);
                 }
             }
             db.closeDB();

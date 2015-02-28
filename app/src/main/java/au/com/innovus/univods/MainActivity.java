@@ -31,7 +31,10 @@ import au.com.innovus.univods.helper.DatabaseHandler;
 public class MainActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private final String TAG  = "MAIN ACTIVITY";
-    ArrayList<Topic> selectedTopics;
+    private ArrayList<Topic> selectedTopics;
+    private ArrayAdapter<String> adapter;
+    private ListView listView;
+    String[] selected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,31 +43,20 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         //Set onclick listener to add button
         findViewById(R.id.add_topic_button).setOnClickListener(this);
 
-        ListView listView = (ListView) findViewById(R.id.listViewCurrentTopics);
-        SimpleCursorAdapter mAdapter;
 
-        DatabaseHandler db = new DatabaseHandler(this);
-        selectedTopics = (ArrayList<Topic>) db.getAllSelectedTopics();
-        db.closeDB();
 
-        Log.d(TAG, "size" + selectedTopics.size());
+    }
 
-        String[] selected = new String[selectedTopics.size()];
+    private String[] getSelected(ArrayList<Topic> selectedTopics) {
+
+        selected = new String[selectedTopics.size()];
 
         for (int i = 0; i < selected.length; i++){
             Topic t = selectedTopics.get(i);
             Log.d(TAG, t.toString());
             selected[i] = new String(t.getName());
         }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                selected);
-
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
-
+        return selected;
     }
 
 
@@ -136,4 +128,31 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
     }
+
+    @Override
+    protected void onResume() {
+
+        Log.d(TAG, "oN RESUME");
+        super.onResume();
+        listView = (ListView) findViewById(R.id.listViewCurrentTopics);
+        SimpleCursorAdapter mAdapter;
+
+        DatabaseHandler db = new DatabaseHandler(this);
+        selectedTopics = (ArrayList<Topic>) db.getAllSelectedTopics();
+        db.closeDB();
+
+        Log.d(TAG, "size" + selectedTopics.size());
+
+        selected = getSelected(selectedTopics);
+
+        adapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                selected);
+
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
+    }
+
+
 }
