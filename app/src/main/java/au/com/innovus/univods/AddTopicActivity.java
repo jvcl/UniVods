@@ -122,7 +122,6 @@ public class AddTopicActivity extends Activity implements View.OnClickListener {
             db.closeDB();
 
             Toast.makeText(this, "Removed", Toast.LENGTH_SHORT).show();
-
         }
     }
 

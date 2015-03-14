@@ -65,10 +65,7 @@ public class VideoListActivity extends FragmentActivity
         for (VideoItem v : videoItems){
             Log.d(TAG, v.toString());
         }
-
         Log.d(TAG, topic.toString());
-
-
 
         // TODO: If exposing deep links into your app, handle intents here.
     }

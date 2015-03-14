@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="au.com.innovus.univods.MainActivity">
+    tools:context="au.com.innovus.univods.MainActivity"
+    android:background="#F5F5F5">
 
     <LinearLayout
         android:layout_width="match_parent"
