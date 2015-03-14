@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,6 +31,7 @@ public class AddTopicActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_topic);
+
 
         findViewById(R.id.search_by_code).setOnClickListener(this);
         findViewById(R.id.add_by_code).setOnClickListener(this);

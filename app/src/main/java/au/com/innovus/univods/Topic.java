@@ -48,7 +48,7 @@ public class Topic implements Parcelable {
 
     public void setCode(String code) {
         this.code = code;
-        URL = "http://video.flinders.edu.au/lectureResources/vod/"+code+"_2014.xml";
+        URL = "http://video.flinders.edu.au/lectureResources/vod/"+code+"_2015.xml";
     }
     public void setName(String name) {
         this.name = name;
