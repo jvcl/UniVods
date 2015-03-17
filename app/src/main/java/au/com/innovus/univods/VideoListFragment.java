@@ -1,6 +1,7 @@
 package au.com.innovus.univods;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
@@ -16,7 +17,7 @@ import au.com.innovus.univods.dummy.DummyContent;
  * A list fragment representing a list of Videos. This fragment
  * also supports tablet devices by allowing list items to be given an
  * 'activated' state upon selection. This helps indicate which item is
- * currently being viewed in a {@link VideoDetailFragment}.
+ * currently being viewed in a {@link }.
  * <p/>
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
@@ -85,9 +86,14 @@ public class VideoListFragment extends ListFragment {
                 entries));
     }
 
+
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ListView listView = getListView();
+        //listView.setBackgroundColor(Color.parseColor("#FFFDE7"));
 
         // Restore the previously serialized activated item position.
         if (savedInstanceState != null

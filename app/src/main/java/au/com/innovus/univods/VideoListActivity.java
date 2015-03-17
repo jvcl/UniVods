@@ -1,5 +1,6 @@
 package au.com.innovus.univods;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -90,15 +91,21 @@ public class VideoListActivity extends FragmentActivity
         Log.d(TAG, "videoitems size "+ videoItems.size());
 
         for (int i = 0; i < entries.length; i++){
-            String name = formatName(videoItems.get(i).getTitle());
+            String name = formatName(videoItems.get(i).getTitle(), i+1);
             entries[i] = name;
         }
         return entries;
     }
 
-    private String formatName(String name) {
+    private String formatName(String name, int ind) {
 
         int index = name.indexOf("-") + 2;
-        return name.substring(index);
+        return "Lecture "+ind +": "+ name.substring(index);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 }
