@@ -82,7 +82,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             startActivity(new Intent(this, AddTopicActivity.class));
         }
         if (id == R.id.menu_remove) {
-            startActivity(new Intent(this, AddTopicActivity.class));
+            startActivity(new Intent(this, RemoveTopicActivity.class));
         }
 
 
