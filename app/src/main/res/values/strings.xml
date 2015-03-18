@@ -8,4 +8,5 @@
     <string name="add_topic">Add/Remove Topics</string>
     <string name="name_app">UniVods</string>
     <string name="title_activity_add_topic">AddTopicActivity</string>
+    <string name="title_activity_remove_topic">RemoveTopicActivity</string>
 </resources>

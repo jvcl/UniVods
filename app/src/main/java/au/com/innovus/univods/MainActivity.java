@@ -81,6 +81,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         if (id == R.id.menu_add) {
             startActivity(new Intent(this, AddTopicActivity.class));
         }
+        if (id == R.id.menu_remove) {
+            startActivity(new Intent(this, AddTopicActivity.class));
+        }
 
 
         return super.onOptionsItemSelected(item);
