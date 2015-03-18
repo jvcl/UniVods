@@ -85,7 +85,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             startActivity(new Intent(this, RemoveTopicActivity.class));
         }
 
-
         return super.onOptionsItemSelected(item);
     }
 
