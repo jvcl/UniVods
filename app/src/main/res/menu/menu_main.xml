@@ -9,9 +9,9 @@
         app:showAsAction="never" />
 
     <item android:id="@+id/menu_add"
-        android:title="Add"
+        android:title="Add Topic"
         app:showAsAction="never"/>
     <item android:id="@+id/menu_remove"
-        android:title="Remove"
+        android:title="Remove Topic"
         app:showAsAction="never"/>
 </menu>
