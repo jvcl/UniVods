@@ -5,8 +5,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="au.com.innovus.univods.RemoveTopicActivity"
-    android:background="#FFF9C4"
-    android:orientation="vertical">
+    android:background="#C2D5D8"
+    android:orientation="vertical"
+    >
 
 
     <TextView
@@ -20,14 +21,14 @@
         android:textStyle="bold" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:minHeight="100dp" />
+        android:minHeight="100dp"
+        android:id="@+id/linearLayoutRemoveTopic"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_remove"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"

@@ -42,9 +42,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
         //Set onclick listener to add button
         //findViewById(R.id.add_topic_button).setOnClickListener(this);
-
-
-
     }
 
     private String[] getSelected(ArrayList<Topic> selectedTopics) {
@@ -160,6 +157,4 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
     }
-
-
 }

@@ -34,20 +34,7 @@ public class AddTopicActivity extends Activity implements View.OnClickListener {
 
         findViewById(R.id.search_by_code).setOnClickListener(this);
         findViewById(R.id.add_by_code).setOnClickListener(this);
-        findViewById(R.id.button_remove).setOnClickListener(this);
 
-        DatabaseHandler db = new DatabaseHandler(this);
-
-        ArrayList<Topic> selected = (ArrayList<Topic>) db.getAllSelectedTopics();
-        layout = (LinearLayout) findViewById(R.id.linearLayoutAddTopic);
-
-        for (Topic topic : selected){
-            CheckBox checkBox = new CheckBox(this);
-            checkBox.setText(topic.getCode() + " " +topic.getName());
-            layout.addView(checkBox);
-            mapSelected.put(checkBox, topic);
-        }
-        db.closeDB();
     }
 
     @Override
@@ -108,20 +95,7 @@ public class AddTopicActivity extends Activity implements View.OnClickListener {
 
             Log.d(TAG, "add By code");
         }
-        if (v.getId() == R.id.button_remove) {
 
-            DatabaseHandler db = new DatabaseHandler(this);
-            for (CheckBox checkBox : mapSelected.keySet()){
-                if (checkBox.isChecked()){
-                    Topic topic1 = mapSelected.get(checkBox);
-                    db.setSelected(topic1, 0);
-                    layout.removeView(checkBox);
-                }
-            }
-            db.closeDB();
-
-            Toast.makeText(this, "Removed", Toast.LENGTH_SHORT).show();
-        }
     }
 
     private boolean isTopicCodeValid(String code){
