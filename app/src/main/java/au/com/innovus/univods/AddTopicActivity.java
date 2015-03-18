@@ -32,7 +32,6 @@ public class AddTopicActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_topic);
 
-
         findViewById(R.id.search_by_code).setOnClickListener(this);
         findViewById(R.id.add_by_code).setOnClickListener(this);
         findViewById(R.id.button_remove).setOnClickListener(this);
