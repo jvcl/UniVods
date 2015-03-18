@@ -2,6 +2,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="au.com.innovus.univods.MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/menu_add"
+        android:title="Add"
+        app:showAsAction="never"/>
+    <item android:id="@+id/menu_remove"
+        android:title="Remove"
+        app:showAsAction="never"/>
 </menu>
