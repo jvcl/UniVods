@@ -42,6 +42,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
         //Set onclick listener to add button
         //findViewById(R.id.add_topic_button).setOnClickListener(this);
+
+
+
     }
 
     private String[] getSelected(ArrayList<Topic> selectedTopics) {
@@ -71,10 +74,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
         if (id == R.id.menu_add) {
             startActivity(new Intent(this, AddTopicActivity.class));
         }
