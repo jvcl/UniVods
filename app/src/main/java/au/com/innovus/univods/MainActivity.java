@@ -41,7 +41,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         setContentView(R.layout.activity_main);
 
         //Set onclick listener to add button
-        findViewById(R.id.add_topic_button).setOnClickListener(this);
+        //findViewById(R.id.add_topic_button).setOnClickListener(this);
 
 
 
@@ -91,11 +91,11 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.add_topic_button){
+        //if (v.getId() == R.id.add_topic_button){
 
-            startActivity(new Intent(this, AddTopicActivity.class));
+            //startActivity(new Intent(this, AddTopicActivity.class));
 
-        }
+       // }
     }
 
     @Override
