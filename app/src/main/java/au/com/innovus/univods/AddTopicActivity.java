@@ -63,11 +63,8 @@ public class AddTopicActivity extends Activity implements View.OnClickListener {
             DatabaseHandler db = new DatabaseHandler(this);
             if (topic != null){
                 db.setSelected(topic, 1);
+                Toast.makeText(this, "Topic Added", Toast.LENGTH_SHORT).show();
             }
-
-            CheckBox checkBox = new CheckBox(this);
-            checkBox.setText(topic.getCode() + " " +topic.getName());
-            layout.addView(checkBox);
 
             db.closeDB();
 
